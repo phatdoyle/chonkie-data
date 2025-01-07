@@ -1,0 +1,193 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+  background-color: white;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.chart-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+.chart-container > div {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+canvas {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .chart-container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  div[style*="gridTemplateColumns"] {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .chart-container {
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  
+  #root {
+    padding: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+  }
+
+  .holders-table th,
+  .holders-table td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-container {
+    padding: 2px;
+  }
+
+  #root {
+    padding: 0.25rem;
+  }
+
+  .holders-table th,
+  .holders-table td {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+}
+
+h1 {
+  color: #333;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.holders-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.holders-table th {
+  background-color: #f5f5f5;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+
+.holders-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.holders-table tr:hover {
+  background-color: #f8f8f8;
+}
+
+.holders-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Add these styles for the slider */
+.rc-slider {
+  margin: 20px 0;
+}
+
+.rc-slider-track {
+  background-color: #2196F3;
+}
+
+.rc-slider-handle {
+  border-color: #2196F3;
+}
+
+.rc-slider-handle:hover {
+  border-color: #1976D2;
+}
+
+.rc-slider-handle:active {
+  border-color: #1976D2;
+  box-shadow: 0 0 5px #1976D2;
+}
+
+.rc-slider-mark-text {
+  font-size: 12px;
+  color: #666;
+}
+
+.slider-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.slider-container h3 {
+  color: #333;
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+}
+
+/* Update existing slider styles */
+.rc-slider {
+  margin: 10px 0 20px;
+  width: 95% !important;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .slider-container {
+    padding: 15px;
+    margin-bottom: 1rem;
+  }
+  
+  .slider-container h3 {
+    font-size: 0.9rem;
+  }
+}
