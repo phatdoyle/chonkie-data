@@ -36,6 +36,9 @@ interface ChonkData {
   dailyChonkTraitTransfers: {
     items: Array<{ id: string; totalTraitsTransfers: number }>;
   };
+  dailyHoldersWallets: {
+    items: Array<{ id: string; totalWallets: number }>;
+  };
 }
 
 const tableStyles = {
@@ -75,7 +78,7 @@ export function ChonkieCharts() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://api.ghostlogs.xyz/gg/pub/99727ea0-a98b-494c-ae7d-0cc2ae12333b/ghostgraph",
+          "https://api.ghostlogs.xyz/gg/pub/5326a0d1-e75f-40ca-bdf2-684f02f978af/ghostgraph",
           {
             headers: {
               "X-GHOST-KEY": "3qt9k7e7ejw831m98qgvjs",
@@ -102,6 +105,12 @@ export function ChonkieCharts() {
                       totalTraitsTransfers
                     }
                   }
+                 dailyHoldersWallets {
+                    items {
+                        id
+                        totalWallets
+                     }
+                    }
                 }
               `
             }),
@@ -141,7 +150,7 @@ export function ChonkieCharts() {
   const options = {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: windowWidth < 768 ? 1 : 1.75,
+    aspectRatio: windowWidth < 768 ? 1.5 : 2.5,
     plugins: {
       legend: {
         position: 'top' as const,
@@ -169,6 +178,22 @@ export function ChonkieCharts() {
           minRotation: 45,
           autoSkip: true,
           maxTicksLimit: windowWidth < 768 ? 6 : 10
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      }
+    }
+  };
+
+  const holdersChartOptions = {
+    ...options,
+    scales: {
+      ...options.scales,
+      y: {
+        beginAtZero: false,
+        ticks: {
+          color: '#333'
         },
         grid: {
           color: 'rgba(0, 0, 0, 0.1)'
@@ -218,6 +243,19 @@ export function ChonkieCharts() {
     }]
   };
 
+  const dailyHoldersData = {
+    labels: filterDataByDateRange(data.dailyHoldersWallets.items, dateRange)
+      .map(item => formatEpochToDate(item.id)),
+    datasets: [{
+      label: 'Daily Holders',
+      data: filterDataByDateRange(data.dailyHoldersWallets.items, dateRange)
+        .map(item => item.totalWallets),
+      borderColor: '#4CAF50',
+      backgroundColor: 'rgba(76, 175, 80, 0.1)',
+      tension: 0.1
+    }]
+  };
+
   const renderTopHoldersTable = () => {
     return (
       <table style={tableStyles.table}>
@@ -249,6 +287,10 @@ export function ChonkieCharts() {
       padding: windowWidth < 768 ? '0.5rem' : '1rem',
       boxSizing: 'border-box'
     }}>
+      <div className="chart-container" style={{ marginBottom: '2rem' }}>
+        <Line data={dailyHoldersData} options={holdersChartOptions} />
+      </div>
+
       <div style={{
         display: 'grid',
         gridTemplateColumns: windowWidth < 768 ? '1fr' : 'repeat(2, 1fr)',
@@ -265,7 +307,7 @@ export function ChonkieCharts() {
         </div>
 
         <div className="slider-container" style={{ 
-          gridColumn: '1 / -1' // This makes it span across all columns
+          gridColumn: '1 / -1'
         }}>
           <h3>Date Range</h3>
           <Slider
